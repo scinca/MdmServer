@@ -2,7 +2,9 @@ using Api.Modules.Users.Domain;
 using Api.SharedKernel.Persistence;
 using Api.SharedKernel.UrlFriendlyGuid;
 using FastEndpoints;
+using FastEndpoints.OpenApi;
 using Microsoft.AspNetCore.Identity;
+using Scalar.AspNetCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,9 +27,16 @@ builder.Services.AddIdentityCore<ApplicationUser>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddFastEndpoints();
+builder.Services.AddFastEndpoints()
+    .OpenApiDocument();
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference("/",options => options.AddDocuments("v1"));
+}
 
 app.MapDefaultEndpoints();
 
@@ -35,8 +44,6 @@ app.UseAuthorization();
 app.UseAuthorization();
 
 app.UseFastEndpoints();
-
-app.MapGet("/", () => "Hello World!");
 
 app.Run();
 
