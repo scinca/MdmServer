@@ -11,7 +11,11 @@ public static class HostExtension
         string? connectionString = configuration.GetConnectionString("AppDb");
 
         services.AddDbContextPool<AppDbContext>(options =>
-            options.UseNpgsql(connectionString, op => op.MigrationsAssembly("Migrations")))
+            options.UseNpgsql(connectionString, op =>
+            {
+                op.MigrationsAssembly("Migrations");
+            }));
+
         return services;
     }
 }
