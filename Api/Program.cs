@@ -15,6 +15,8 @@ builder.Services.Configure<RouteOptions>(options =>
 );
 
 builder.Services.ConfigurePersistence(builder.Configuration);
+
+builder.Services.AddDataProtection();
 builder.Services.AddIdentityCore<ApplicationUser>()
     .AddRoles<UserRole>()
     .AddEntityFrameworkStores<AppDbContext>()

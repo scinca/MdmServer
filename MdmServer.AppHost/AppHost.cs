@@ -14,6 +14,6 @@ var migrations = api.AddEFMigrations("api-migrations",
     .WaitFor(appDb)
     .RunDatabaseUpdateOnStart();
 
-api.WaitForCompletion(appDb);
+api.WaitForCompletion(migrations);
 
 builder.Build().Run();
