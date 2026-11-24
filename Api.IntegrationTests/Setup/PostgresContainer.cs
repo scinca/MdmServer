@@ -29,10 +29,15 @@ internal static class PostgresContainer
             await Exec(admin, $"CREATE DATABASE {Template}");
 
             // apply schema ONCE to the template
-            string tplCs = new NpgsqlConnectionStringBuilder(c.GetConnectionString()) { Database = Template }
+            string templateConnectionString = new NpgsqlConnectionStringBuilder(c.GetConnectionString()) { Database = Template }
                 .ConnectionString;
-            await using (var db = new AppDbContext(new DbContextOptionsBuilder<AppDbContext>().UseNpgsql(tplCs)
-                             .Options))
+
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                .UseNpgsql(templateConnectionString, o => o.MigrationsAssembly("Migrations"))
+                .Options;
+
+
+            await using (var db = new AppDbContext(options))
                 await db.Database.MigrateAsync();
 
             NpgsqlConnection.ClearAllPools(); // template must have zero open connections
@@ -49,11 +54,16 @@ internal static class PostgresContainer
     internal static async Task<string> CreateDbAsync()
     {
         await EnsureStartedAsync();
+
         string name = $"t_{Guid.NewGuid():N}";
+
         await using var admin = new NpgsqlConnection(s_container!.GetConnectionString());
         await admin.OpenAsync();
+
         await Exec(admin, $"CREATE DATABASE {name} TEMPLATE {Template}");
-        return new NpgsqlConnectionStringBuilder(s_container.GetConnectionString()) { Database = name }.ConnectionString;
+        string connectionString = new NpgsqlConnectionStringBuilder(
+            s_container.GetConnectionString()) { Database = name }.ConnectionString;
+        return connectionString;
     }
 
     private static async Task Exec(NpgsqlConnection c, string sql)
