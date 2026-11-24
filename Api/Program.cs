@@ -45,7 +45,9 @@ app.UseAuthorization();
 app.UseFastEndpoints(config =>
 {
     config.Endpoints.RoutePrefix = "api";
+    // config.Endpoints.Warmup(); For prods.
     config.Errors.UseProblemDetails();
+
 });
 
 app.Run();
