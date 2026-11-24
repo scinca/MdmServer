@@ -8,11 +8,11 @@
 
     <ItemGroup>
       <PackageReference Include="FastEndpoints" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Modules\" />
-      <Folder Include="SharedKernel\Persistence\" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 
 </Project>
