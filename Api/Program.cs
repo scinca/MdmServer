@@ -4,6 +4,7 @@ using Api.SharedKernel.UrlFriendlyGuid;
 using FastEndpoints;
 using Microsoft.AspNetCore.Identity;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -16,6 +17,8 @@ builder.Services.Configure<RouteOptions>(options =>
 
 builder.Services.ConfigurePersistence(builder.Configuration);
 
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 builder.Services.AddDataProtection();
 builder.Services.AddIdentityCore<ApplicationUser>()
     .AddRoles<UserRole>()
@@ -23,8 +26,6 @@ builder.Services.AddIdentityCore<ApplicationUser>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddFastEndpoints();
-
-
 
 var app = builder.Build();
 
@@ -38,3 +39,5 @@ app.UseFastEndpoints();
 app.MapGet("/", () => "Hello World!");
 
 app.Run();
+
+public partial class Program;
