@@ -3,6 +3,6 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-
+    <PackageVersion Include="FastEndpoints" Version="9.0.0" />
   </ItemGroup>
 </Project>
