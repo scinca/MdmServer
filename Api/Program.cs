@@ -6,7 +6,6 @@ using FastEndpoints.OpenApi;
 using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -43,8 +42,11 @@ app.MapDefaultEndpoints();
 app.UseAuthorization();
 app.UseAuthorization();
 
-app.UseFastEndpoints();
+app.UseFastEndpoints(config =>
+{
+    config.Endpoints.RoutePrefix = "api";
+    config.Errors.UseProblemDetails();
+});
 
 app.Run();
-
 public partial class Program;
