@@ -1,4 +1,6 @@
 <Solution>
   <Project Path="Api/Api.csproj" />
+  <Project Path="MdmServer.AppHost/MdmServer.AppHost.csproj" />
+  <Project Path="MdmServer.ServiceDefaults/MdmServer.ServiceDefaults.csproj" />
   <Project Path="Migrations/Migrations.csproj" />
 </Solution>

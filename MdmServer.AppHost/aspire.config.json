@@ -1,0 +1,5 @@
+{
+  "appHost": {
+    "path": "MdmServer.AppHost.csproj"
+  }
+}

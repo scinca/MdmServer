@@ -5,6 +5,8 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 builder.Services.AddSingleton(TimeProvider.System);
 
 builder.Services.Configure<RouteOptions>(options =>
@@ -23,6 +25,8 @@ builder.Services.AddFastEndpoints();
 
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.UseAuthorization();
 app.UseAuthorization();
