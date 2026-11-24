@@ -9,7 +9,7 @@ namespace Api.Modules.Tenants.Features.GetAll;
 
 public class GetAllResponse(ICollection<Tenant> tenants)
 {
-    ICollection<Tenant> Tenants { get; set; } = tenants;
+    public ICollection<Tenant> Tenants { get; set; } = tenants;
 }
 
 
