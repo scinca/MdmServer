@@ -1,5 +1,8 @@
 // OnboardingEndpoint.cs
 
+using Api.Modules.Tenants.Domain;
+using Api.Modules.Users.Features.CreateUser;
+using Api.SharedKernel.Defaults;
 using Api.SharedKernel.Persistence;
 using FastEndpoints;
 using FluentValidation;
@@ -44,9 +47,17 @@ public static class OnboardingEndpoint
 
         public override async Task HandleAsync(Request req, CancellationToken ct)
         {
+            var tenant = new Tenant(req.CompanyName);
 
+            context.Tenants.Add(tenant);
+            // possible exception
+            await context.SaveChangesAsync(ct);
 
+            // perhaps do it in a wolverine handler
+            var cmd = new CreateUserCommand(req.Email, req.Password, tenant.Id);
+            await bus.InvokeAsync(cmd, ct, Default.Timeout);
 
+            await Send.OkAsync(cancellation: ct);
         }
     }
 }
