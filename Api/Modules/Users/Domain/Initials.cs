@@ -9,8 +9,8 @@ namespace Api.Modules.Users.Domain;
 [JsonConverter(typeof(InitialsJsonConverter))]
 public readonly record struct Initials
 {
-  public char First { get; }
-  public char Last { get; }
+    public char First { get; } = 'A';
+    public char Last { get; } = 'B';
 
   public override string ToString() => $"{First}{Last}";
 

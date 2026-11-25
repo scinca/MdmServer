@@ -24,7 +24,10 @@ builder.Services.ConfigurePersistence(builder.Configuration);
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.Services.AddDataProtection();
-builder.Services.AddIdentityCore<ApplicationUser>()
+builder.Services.AddIdentityCore<ApplicationUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+    })
     .AddRoles<UserRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
