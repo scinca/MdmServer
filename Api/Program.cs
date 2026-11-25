@@ -5,10 +5,13 @@ using FastEndpoints;
 using FastEndpoints.OpenApi;
 using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
+using Wolverine;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+builder.Host.UseWolverine();
+
 builder.Services.AddSingleton(TimeProvider.System);
 
 builder.Services.Configure<RouteOptions>(options =>
