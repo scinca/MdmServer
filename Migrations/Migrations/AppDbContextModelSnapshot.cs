@@ -16,7 +16,7 @@ partial class AppDbContextModelSnapshot : ModelSnapshot
     // If you encounter a merge conflict in the line below, it means you need to
     // discard one of the migration branches and recreate its migrations on top of
     // the other branch. See https://aka.ms/efcore-docs-migrations-conflicts for more info.
-    public override string LastMigrationId => "20261124162736_Initial";
+    public override string LastMigrationId => "20261126114449_Temporary";
 
     protected override void BuildModel(ModelBuilder modelBuilder)
     {
@@ -30,8 +30,12 @@ partial class AppDbContextModelSnapshot : ModelSnapshot
         modelBuilder.Entity("Api.Modules.Tenants.Domain.Tenant", b =>
             {
                 b.Property<Guid>("Id")
-                    .ValueGeneratedOnAdd()
                     .HasColumnType("uuid");
+
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(256)
+                    .HasColumnType("character varying(256)");
 
                 b.HasKey("Id");
 
@@ -58,6 +62,11 @@ partial class AppDbContextModelSnapshot : ModelSnapshot
                 b.Property<bool>("EmailConfirmed")
                     .HasColumnType("boolean");
 
+                b.Property<string>("Initials")
+                    .HasMaxLength(2)
+                    .HasColumnType("character(2)")
+                    .IsFixedLength();
+
                 b.Property<bool>("LockoutEnabled")
                     .HasColumnType("boolean");
 
@@ -83,6 +92,9 @@ partial class AppDbContextModelSnapshot : ModelSnapshot
 
                 b.Property<string>("SecurityStamp")
                     .HasColumnType("text");
+
+                b.Property<Guid>("TenantId")
+                    .HasColumnType("uuid");
 
                 b.Property<bool>("TwoFactorEnabled")
                     .HasColumnType("boolean");
