@@ -11,12 +11,12 @@ updates:
     directory: "/"
     schedule:
       interval: daily
-      groups:
-        nuget-deps:
-          patterns:
-            - "*"
-      commit-message:
-        prefix: "Dependabot package updates"
+    groups:
+      nuget-deps:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "Dependabot package updates"
 
   - package-ecosystem: github-actions
     directory: "/"
