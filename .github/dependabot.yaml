@@ -1,0 +1,30 @@
+version: 2
+updates:
+  - package-ecosystem: dotnet-sdk
+    directory: "/"
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "Dependabot:"
+
+  - package-ecosystem: nuget
+    directory: "/"
+    schedule:
+      interval: daily
+      groups:
+        nuget-deps:
+          patterns:
+            - "*"
+      commit-message:
+        prefix: "Dependabot package updates"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    groups:
+      gh-actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "GitHub Action updates"
