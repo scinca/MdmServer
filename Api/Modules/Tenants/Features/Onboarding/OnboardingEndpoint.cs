@@ -47,6 +47,7 @@ public static class OnboardingEndpoint
 
         public override async Task HandleAsync(Request req, CancellationToken ct)
         {
+            // possibly publish an event for eg. 
             var tenant = new Tenant(req.CompanyName);
 
             context.Tenants.Add(tenant);

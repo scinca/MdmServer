@@ -29,8 +29,7 @@ public class CreateUserCommandHandler(ILogger<CreateUserCommandHandler> logger,
             logger.LogError("User Creation Failed {Errors}", createdResult.Errors);
         }
 
-        // TODO: Roles and Email confirmation
-
+        // return result
+        await userManager.AddToRoleAsync(user, "Admin");
     }
-
 }

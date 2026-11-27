@@ -37,11 +37,30 @@ builder.Services.AddFastEndpoints()
 
 var app = builder.Build();
 
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<UserRole>>();
+    string[] roles = ["Admin", "User"];
+    foreach (string role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            var result = await roleManager.CreateAsync(new UserRole { Name = role, });
+            if (!result.Succeeded)
+            {
+                throw new InvalidOperationException($"Failed to create role {role}.");
+            }
+        }
+    }
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference("/",options => options.AddDocuments("v1"));
 }
+
+
 
 app.MapDefaultEndpoints();
 
